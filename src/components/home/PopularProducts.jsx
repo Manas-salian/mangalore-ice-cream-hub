@@ -6,9 +6,9 @@ import ProductCard from "@/components/product/ProductCard";
 import { products } from "@/lib/data";
 
 const PopularProducts = () => {
-  // Get popular products
+  // Get popular products and include some new premium ones too
   const popularProducts = products
-    .filter((product) => product.isPopular)
+    .filter((product) => product.isPopular || (product.isNew && product.category === "premium"))
     .slice(0, 4);
 
   return (

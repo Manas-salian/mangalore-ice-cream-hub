@@ -11,6 +11,9 @@ export function getIceCreamOfTheDay() {
   return iceCream;
 }
 
+// Product categories
+export const categories = ["ice-cream", "sundae", "cone", "premium", "family-pack", "sugar-free", "candy", "beverage", "dessert"];
+
 // Product data
 export const products = [
   {
@@ -20,7 +23,7 @@ export const products = [
     price: 120,
     image: "https://img.freepik.com/free-photo/delicious-vanilla-ice-cream-with-chocolate-syrup-nuts-wooden-table_1220-6768.jpg",
     rating: 4.9,
-    category: "ice-cream",
+    category: "sundae",
     isPopular: true
   },
   {
@@ -40,7 +43,7 @@ export const products = [
     price: 80,
     image: "https://img.freepik.com/free-photo/delicious-vanilla-ice-cream-cone_23-2148867986.jpg",
     rating: 4.5,
-    category: "ice-cream"
+    category: "cone"
   },
   {
     id: "4",
@@ -87,7 +90,7 @@ export const products = [
     price: 130,
     image: "https://img.freepik.com/free-photo/chocolate-vanilla-dessert-with-chopped-nuts-caramel-topping-side-view-sweet-modern-pastry-dessert-white-plate-restaurant-dish-close-up-selective-focus_695186-834.jpg",
     rating: 4.6,
-    category: "ice-cream"
+    category: "sundae"
   },
   {
     id: "9",
@@ -106,8 +109,105 @@ export const products = [
     price: 150,
     image: "https://img.freepik.com/free-photo/strawberry-scoop-chocolate-syrup-bowl-fruit-ice-cream-with-yogurt-milk-cocktail-close-up-organic-dessert-white-creamy-gelato-berry-homemade-fruit_1258-74254.jpg",
     rating: 4.8,
+    category: "sundae",
+    isNew: true
+  },
+  // New products based on the categories provided
+  {
+    id: "11",
+    name: "Tiramisu Ice Cream",
+    description: "Premium coffee-flavored ice cream layered with mascarpone cream and cocoa powder.",
+    price: 180,
+    image: "https://img.freepik.com/free-photo/ice-cream-with-chocolate-pieces-ice-cream-scoop-black-surface_153377-1358.jpg",
+    rating: 4.9,
+    category: "premium",
+    isNew: true
+  },
+  {
+    id: "12",
+    name: "Marzi Paan",
+    description: "A unique blend of traditional paan flavors with creamy ice cream.",
+    price: 95,
+    image: "https://img.freepik.com/free-photo/tasty-strawberry-ice-cream-wooden-table_23-2148558938.jpg",
+    rating: 4.6,
+    category: "ice-cream",
+    isNew: true
+  },
+  {
+    id: "13",
+    name: "i Pizza",
+    description: "A sweet twist on pizza - ice cream base with candy and chocolate toppings.",
+    price: 220,
+    image: "https://img.freepik.com/free-photo/close-up-view-chocolate-donuts-with-sprinkles-candy_114579-7162.jpg",
+    rating: 4.7,
     category: "dessert",
     isNew: true
+  },
+  {
+    id: "14",
+    name: "Candy Stick Assortment",
+    description: "A bundle of colorful ice cream sticks with various fruit flavors.",
+    price: 60,
+    image: "https://img.freepik.com/free-photo/popsicle-ice-cream-set_93675-132045.jpg",
+    rating: 4.5,
+    category: "candy"
+  },
+  {
+    id: "15",
+    name: "Dark Chocolate Family Pack",
+    description: "1.5 Liter container of premium dark chocolate ice cream made with real Belgian chocolate.",
+    price: 280,
+    image: "https://img.freepik.com/free-photo/vanilla-ice-cream-with-chocolate_1339-1389.jpg",
+    rating: 4.8,
+    category: "family-pack"
+  },
+  {
+    id: "16",
+    name: "Low 'N' Lite Vanilla",
+    description: "Sugar-free vanilla ice cream perfect for health-conscious dessert lovers.",
+    price: 150,
+    image: "https://img.freepik.com/free-photo/vanilla-ice-cream-bowl_144627-9723.jpg",
+    rating: 4.4,
+    category: "sugar-free"
+  },
+  {
+    id: "17",
+    name: "Fresh Strawberry Cone",
+    description: "Real strawberry ice cream in a crispy waffle cone, made with fresh seasonal fruits.",
+    price: 80,
+    image: "https://img.freepik.com/free-photo/strawberry-ice-cream-dark-concrete-table_151254-3095.jpg",
+    rating: 4.7,
+    category: "cone",
+    isPopular: true
+  },
+  {
+    id: "18",
+    name: "Mango Family Pack",
+    description: "1 Liter pack of mango ice cream, perfect for sharing.",
+    price: 250,
+    image: "https://img.freepik.com/free-photo/tasty-mango-ice-cream-wooden-table_23-2148558935.jpg",
+    rating: 4.9,
+    category: "family-pack",
+    isPopular: true
+  },
+  {
+    id: "19",
+    name: "i Thaali",
+    description: "An assortment of mini ice cream servings in various flavors, served in a traditional thali setup.",
+    price: 320,
+    image: "https://img.freepik.com/free-photo/collection-ice-cream-decorated-with-fruits-rustic-wooden-background_114579-66608.jpg",
+    rating: 4.9,
+    category: "premium",
+    isNew: true
+  },
+  {
+    id: "20",
+    name: "Buy One Get One Pack",
+    description: "700ml pack of our signature vanilla and chocolate ice cream with a free 700ml pack.",
+    price: 300,
+    image: "https://img.freepik.com/free-photo/chocolate-vanilla-icecream-cup_144627-8280.jpg",
+    rating: 4.6,
+    category: "family-pack"
   }
 ];
 
