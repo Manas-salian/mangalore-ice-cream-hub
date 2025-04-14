@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { StarRating } from "@/components/ui/star-rating";
@@ -8,7 +7,7 @@ const IceCreamOfTheDay = () => {
   const iceCream = getIceCreamOfTheDay();
 
   return (
-    <section className="py-12">
+    <section className="py-6">
       <div className="container">
         <div className="flex flex-col md:flex-row rounded-lg overflow-hidden border bg-card shadow-sm">
           <div className="md:w-1/2">
