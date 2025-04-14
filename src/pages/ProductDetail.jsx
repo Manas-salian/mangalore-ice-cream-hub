@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -28,11 +27,11 @@ const sizes = [
 ];
 
 const ProductDetail = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("medium");
-  const [selectedToppings, setSelectedToppings] = useState<string[]>([]);
+  const [selectedToppings, setSelectedToppings] = useState([]);
   const [userRating, setUserRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
 
@@ -60,7 +59,7 @@ const ProductDetail = () => {
     const selectedSizeObj = sizes.find((s) => s.id === selectedSize);
     const price = product.price * (selectedSizeObj?.priceFactor || 1);
     
-    const customizations: Record<string, string> = {
+    const customizations = {
       size: selectedSize,
     };
     
@@ -80,7 +79,7 @@ const ProductDetail = () => {
     toast.success(`${product.name} added to cart!`);
   };
 
-  const handleSubmitReview = (e: React.FormEvent) => {
+  const handleSubmitReview = (e) => {
     e.preventDefault();
     if (userRating === 0) {
       toast.error("Please select a rating");
@@ -92,7 +91,7 @@ const ProductDetail = () => {
     setReviewText("");
   };
 
-  const handleToggleTopping = (toppingId: string) => {
+  const handleToggleTopping = (toppingId) => {
     setSelectedToppings((prev) =>
       prev.includes(toppingId)
         ? prev.filter((id) => id !== toppingId)
@@ -212,80 +211,117 @@ const ProductDetail = () => {
                   onClick={handleAddToCart}
                   className="w-full bg-ideal hover:bg-ideal-dark"
                 >
-                  <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Add to Cart
                 </Button>
               </div>
             </div>
           </div>
 
           <div className="mt-16">
-            <Tabs defaultValue="reviews">
-              <TabsList>
-                <TabsTrigger value="description">Description</TabsTrigger>
+            <Tabs defaultValue="details">
+              <TabsList className="mb-6">
+                <TabsTrigger value="details">Product Details</TabsTrigger>
+                <TabsTrigger value="nutrition">Nutrition Info</TabsTrigger>
                 <TabsTrigger value="reviews">Reviews</TabsTrigger>
               </TabsList>
-              <TabsContent value="description" className="p-6">
-                <h3 className="text-xl font-medium mb-4">About {product.name}</h3>
-                <p className="text-gray-600 mb-4">{product.description}</p>
+              <TabsContent value="details" className="space-y-4">
+                <h3 className="text-xl font-bold">About {product.name}</h3>
                 <p className="text-gray-600">
-                  Our ice creams are made with the finest ingredients, sourced locally whenever possible. We never use artificial flavors or preservatives, ensuring that you get the authentic taste in every scoop.
+                  {product.description}
                 </p>
+                <div className="mt-4">
+                  <h4 className="font-bold mb-2">Ingredients</h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    {product.ingredients?.map((ingredient, index) => (
+                      <li key={index}>{ingredient}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mt-4">
+                  <h4 className="font-bold mb-2">Allergen Information</h4>
+                  <p className="text-gray-600">
+                    Contains: Milk, Soy. May contain traces of nuts.
+                  </p>
+                </div>
               </TabsContent>
-              <TabsContent value="reviews" className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <div>
-                    <h3 className="text-xl font-medium mb-4">Customer Reviews</h3>
-                    <div className="space-y-6">
-                      <div className="p-4 border rounded-lg">
-                        <div className="flex items-center mb-2">
-                          <StarRating initialRating={5} readOnly size="sm" />
-                          <span className="ml-2 font-medium">Deepak S.</span>
-                        </div>
-                        <p className="text-gray-600 text-sm">
-                          This is the best ice cream I've had in Mangalore! The texture is perfect and the flavor is rich.
-                        </p>
-                      </div>
-                      <div className="p-4 border rounded-lg">
-                        <div className="flex items-center mb-2">
-                          <StarRating initialRating={4} readOnly size="sm" />
-                          <span className="ml-2 font-medium">Aisha R.</span>
-                        </div>
-                        <p className="text-gray-600 text-sm">
-                          Delicious and creamy! I love that it's not too sweet and you can taste the quality of ingredients.
-                        </p>
-                      </div>
-                    </div>
+              <TabsContent value="nutrition" className="space-y-4">
+                <h3 className="text-xl font-bold">Nutrition Information</h3>
+                <p className="text-sm text-gray-500 mb-4">
+                  Values based on standard recipe for medium size.
+                </p>
+                <div className="border rounded-md overflow-hidden">
+                  <table className="w-full">
+                    <tbody>
+                      <tr className="border-b">
+                        <td className="px-4 py-2 font-medium">Calories</td>
+                        <td className="px-4 py-2 text-right">240 kcal</td>
+                      </tr>
+                      <tr className="border-b bg-gray-50">
+                        <td className="px-4 py-2 font-medium">Fat</td>
+                        <td className="px-4 py-2 text-right">12g</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="px-4 py-2 pl-8">of which saturates</td>
+                        <td className="px-4 py-2 text-right">8g</td>
+                      </tr>
+                      <tr className="border-b bg-gray-50">
+                        <td className="px-4 py-2 font-medium">Carbohydrates</td>
+                        <td className="px-4 py-2 text-right">30g</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="px-4 py-2 pl-8">of which sugars</td>
+                        <td className="px-4 py-2 text-right">25g</td>
+                      </tr>
+                      <tr className="border-b bg-gray-50">
+                        <td className="px-4 py-2 font-medium">Protein</td>
+                        <td className="px-4 py-2 text-right">4g</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 font-medium">Salt</td>
+                        <td className="px-4 py-2 text-right">0.1g</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabsContent>
+              <TabsContent value="reviews" className="space-y-6">
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold">Customer Reviews</h3>
+                  <div className="flex items-center space-x-2">
+                    <StarRating initialRating={product.rating} readOnly />
+                    <span className="text-sm text-muted-foreground">
+                      Based on {product.reviewCount} reviews
+                    </span>
                   </div>
+                </div>
 
-                  <div>
-                    <h3 className="text-xl font-medium mb-4">Write a Review</h3>
-                    <form onSubmit={handleSubmitReview} className="space-y-4">
-                      <div>
-                        <Label htmlFor="rating" className="block mb-2">
-                          Your Rating
-                        </Label>
-                        <StarRating
-                          initialRating={userRating}
-                          onRate={setUserRating}
-                          size="lg"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="review" className="block mb-2">
-                          Your Review
-                        </Label>
-                        <textarea
-                          id="review"
-                          rows={4}
-                          className="w-full p-2 border rounded-md"
-                          placeholder="Share your experience with this product..."
-                          value={reviewText}
-                          onChange={(e) => setReviewText(e.target.value)}
-                        ></textarea>
-                      </div>
-                      <Button type="submit">Submit Review</Button>
-                    </form>
-                  </div>
+                <div className="mt-6">
+                  <h4 className="font-bold mb-3">Write a Review</h4>
+                  <form onSubmit={handleSubmitReview} className="space-y-4">
+                    <div>
+                      <Label htmlFor="rating" className="block mb-2">
+                        Your Rating
+                      </Label>
+                      <StarRating
+                        initialRating={userRating}
+                        onChange={setUserRating}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="review" className="block mb-2">
+                        Your Review
+                      </Label>
+                      <textarea
+                        id="review"
+                        className="w-full p-2 border rounded"
+                        rows={4}
+                        value={reviewText}
+                        onChange={(e) => setReviewText(e.target.value)}
+                      ></textarea>
+                    </div>
+                    <Button type="submit">Submit Review</Button>
+                  </form>
                 </div>
               </TabsContent>
             </Tabs>
@@ -297,4 +333,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default ProductDetail; 

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -17,14 +16,14 @@ const SignIn = () => {
   const [signupPassword, setSignupPassword] = useState("");
   const [signupConfirmPassword, setSignupConfirmPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     // This is a frontend-only mock
     toast.success("Login successful!");
     // In a real application, you would handle authentication here
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = (e) => {
     e.preventDefault();
     if (signupPassword !== signupConfirmPassword) {
       toast.error("Passwords do not match");

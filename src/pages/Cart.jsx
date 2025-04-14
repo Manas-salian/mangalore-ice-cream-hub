@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -41,7 +40,7 @@ const Cart = () => {
     }
   };
 
-  const handlePlaceOrder = (e: React.FormEvent) => {
+  const handlePlaceOrder = (e) => {
     e.preventDefault();
     if (items.length === 0) {
       toast.error("Your cart is empty");
@@ -210,77 +209,74 @@ const Cart = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="mt-6">
-                  <CardHeader>
-                    <CardTitle>Checkout</CardTitle>
-                  </CardHeader>
-                  <form onSubmit={handlePlaceOrder}>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Your Name</Label>
-                          <Input
-                            id="name"
-                            placeholder="Full Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="phone">Phone Number</Label>
-                          <Input
-                            id="phone"
-                            placeholder="Phone Number"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Delivery Option</Label>
-                          <RadioGroup
-                            value={deliveryOption}
-                            onValueChange={setDeliveryOption}
-                          >
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="dine-in" id="dine-in" />
-                              <Label htmlFor="dine-in">Dine-in</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="takeaway" id="takeaway" />
-                              <Label htmlFor="takeaway">Takeaway</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="delivery" id="delivery" />
-                              <Label htmlFor="delivery">Home Delivery</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        {deliveryOption === "delivery" && (
-                          <div className="space-y-2">
-                            <Label htmlFor="address">Delivery Address</Label>
-                            <Input
-                              id="address"
-                              placeholder="Your full address"
-                              value={address}
-                              onChange={(e) => setAddress(e.target.value)}
-                              required={deliveryOption === "delivery"}
-                            />
-                          </div>
-                        )}
+                <form onSubmit={handlePlaceOrder} className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Customer Information</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Name</Label>
+                        <Input
+                          id="name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          required
+                        />
                       </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">Phone</Label>
+                        <Input
+                          id="phone"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Delivery Option</Label>
+                        <RadioGroup 
+                          value={deliveryOption}
+                          onValueChange={setDeliveryOption}
+                          className="flex flex-col space-y-1"
+                        >
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="dine-in" id="dine-in" />
+                            <Label htmlFor="dine-in">Dine-in</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="takeaway" id="takeaway" />
+                            <Label htmlFor="takeaway">Takeaway</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="delivery" id="delivery" />
+                            <Label htmlFor="delivery">Delivery</Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
+                      {deliveryOption === "delivery" && (
+                        <div className="space-y-2">
+                          <Label htmlFor="address">Delivery Address</Label>
+                          <Input
+                            id="address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            required={deliveryOption === "delivery"}
+                          />
+                        </div>
+                      )}
                     </CardContent>
                     <CardFooter>
                       <Button
                         type="submit"
-                        className="w-full bg-ideal hover:bg-ideal-dark"
+                        className="w-full"
+                        disabled={items.length === 0}
                       >
                         Place Order
                       </Button>
                     </CardFooter>
-                  </form>
-                </Card>
+                  </Card>
+                </form>
               </div>
             </div>
           )}
@@ -291,4 +287,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Cart; 

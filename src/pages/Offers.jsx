@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Clipboard, Calendar, Check } from "lucide-react";
@@ -9,9 +8,9 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 const Offers = () => {
-  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [copiedCode, setCopiedCode] = useState(null);
 
-  const handleCopyCode = (code: string) => {
+  const handleCopyCode = (code) => {
     navigator.clipboard.writeText(code);
     setCopiedCode(code);
     toast.success(`Coupon code ${code} copied to clipboard!`);
@@ -22,12 +21,12 @@ const Offers = () => {
   };
 
   // Check if offer is expired
-  const isExpired = (validUntil: string) => {
+  const isExpired = (validUntil) => {
     return new Date(validUntil) < new Date();
   };
 
   // Check if offer is available soon
-  const isComingSoon = (validUntil: string) => {
+  const isComingSoon = (validUntil) => {
     const now = new Date();
     const validDate = new Date(validUntil);
     return validDate > now && validDate.getTime() - now.getTime() < 7 * 24 * 60 * 60 * 1000;
@@ -130,4 +129,4 @@ const Offers = () => {
   );
 };
 
-export default Offers;
+export default Offers; 
