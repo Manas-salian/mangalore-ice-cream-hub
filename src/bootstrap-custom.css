@@ -1,0 +1,95 @@
+:root {
+  --bs-primary: #7C2D75;
+  --bs-primary-rgb: 124, 45, 117;
+  --bs-primary-hover: #5A1F55;
+  
+  --bs-secondary: #FFF8E1; 
+  --bs-secondary-rgb: 255, 248, 225;
+  
+  --bs-success: #198754;
+  --bs-success-rgb: 25, 135, 84;
+  
+  --bs-danger: #dc3545;
+  --bs-danger-rgb: 220, 53, 69;
+  
+  --bs-warning: #ffc107;
+  --bs-warning-rgb: 255, 193, 7;
+  
+  --bs-info: #0dcaf0;
+  --bs-info-rgb: 13, 202, 240;
+}
+
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--bs-secondary) !important;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.text-secondary {
+  color: var(--bs-secondary) !important;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: var(--bs-primary-hover) !important;
+  border-color: var(--bs-primary-hover) !important;
+}
+
+.btn-outline-primary {
+  color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+/* Custom ice cream themed classes */
+.ice-cream-gradient {
+  background: linear-gradient(to right, #7C2D75, #9B50A0);
+}
+
+.navbar-ice {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Override some Bootstrap defaults */
+.form-control:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.pagination .page-link {
+  color: var(--bs-primary);
+}
+
+/* Card hover effects */
+.card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+} 

@@ -1,14 +1,5 @@
-
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { Link } from "react-router-dom";
+import { Carousel, Button } from 'react-bootstrap';
 
 const slides = [
   {
@@ -39,41 +30,35 @@ const slides = [
 
 const HeroCarousel = () => {
   return (
-    <div className="relative overflow-hidden rounded-lg">
-      <Carousel className="w-full" opts={{ loop: true }}>
-        <CarouselContent>
-          {slides.map((slide) => (
-            <CarouselItem key={slide.id}>
-              <div className="relative h-[400px] md:h-[500px] w-full">
-                <img
-                  src={slide.image}
-                  alt={slide.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex flex-col justify-center px-8 md:px-16">
-                  <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                    {slide.title}
-                  </h2>
-                  <p className="text-white text-lg md:text-xl mb-6 max-w-md">
-                    {slide.subtitle}
-                  </p>
-                  <div>
-                    <Button
-                      asChild
-                      className="bg-ideal hover:bg-ideal-dark text-white"
-                    >
-                      <Link to={slide.link}>{slide.cta}</Link>
-                    </Button>
-                  </div>
+    <Carousel fade interval={5000} className="hero-carousel">
+      {slides.map((slide) => (
+        <Carousel.Item key={slide.id}>
+          <div style={{ 
+            height: '500px', 
+            backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0)), url(${slide.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}>
+            <div className="container h-100">
+              <div className="row h-100 align-items-center">
+                <div className="col-md-6">
+                  <h2 className="display-4 text-white fw-bold">{slide.title}</h2>
+                  <p className="text-white lead mb-4">{slide.subtitle}</p>
+                  <Button 
+                    as={Link} 
+                    to={slide.link} 
+                    variant="primary" 
+                    size="lg"
+                  >
+                    {slide.cta}
+                  </Button>
                 </div>
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
-      </Carousel>
-    </div>
+            </div>
+          </div>
+        </Carousel.Item>
+      ))}
+    </Carousel>
   );
 };
 

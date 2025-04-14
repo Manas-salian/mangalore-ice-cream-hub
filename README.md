@@ -1,73 +1,84 @@
-# Welcome to your Lovable project
+# Mangalore Ice Cream Hub
 
-## Project info
+A modern web application for an ice cream business based in Mangalore, featuring a catalog of local ice cream specialties, promotional offers, and online ordering capabilities.
 
-**URL**: https://lovable.dev/projects/4cc0e5d9-4974-42b5-a5e4-e06ab262bc45
+## Features
 
-## How can I edit this code?
+- **Product Catalog**: Browse a variety of ice cream products with detailed descriptions and images
+- **Shopping Cart**: Add items to cart, adjust quantities, and proceed to checkout
+- **Special Offers**: View current promotions and discounts
+- **Spin & Win Game**: Interactive wheel game that allows customers to win discount coupons
+- **Store Locations**: Find nearby ice cream outlets
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
 
-There are several ways of editing your application.
+## Installation
 
-**Use Lovable**
+```bash
+# Clone the repository
+git clone https://github.com/your-username/mangalore-ice-cream-hub.git
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4cc0e5d9-4974-42b5-a5e4-e06ab262bc45) and start prompting.
+# Navigate to the project directory
+cd mangalore-ice-cream-hub
 
-Changes made via Lovable will be committed automatically to this repo.
+# Install dependencies
+npm install
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Technologies Used
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Frontend Framework**: React.js
+- **UI Framework**: React Bootstrap
+- **Styling**: CSS with Bootstrap classes
+- **Routing**: React Router
+- **State Management**: React Hooks and Context API
+- **Notifications**: Sonner Toast
+- **Package Manager**: npm
+- **Build Tool**: Vite
 
-**Use GitHub Codespaces**
+## Project Structure
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- `src/components`: Reusable UI components
+- `src/pages`: Main application pages
+- `src/lib`: Data and utility functions
+- `src/hooks`: Custom React hooks
 
-## What technologies are used for this project?
+## Features Highlight
 
-This project is built with:
+### Spin & Win Component
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The application includes a special promotional feature that allows users to spin a wheel and win discount coupons:
 
-## How can I deploy this project?
+- Interactive spinning wheel with physics-based animation
+- Random prize selection
+- Time-limited usage (once per day)
+- Coupon code generation and storage
+- Mobile-responsive design
 
-Simply open [Lovable](https://lovable.dev/projects/4cc0e5d9-4974-42b5-a5e4-e06ab262bc45) and click on Share -> Publish.
+### Product Catalog
 
-## Can I connect a custom domain to my Lovable project?
+- Categorized ice cream products
+- Detailed product information
+- Rating system
+- Image display with fallback support
+- Add to cart functionality
 
-Yes, you can!
+## Development
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+To run the application in development mode:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```bash
+npm run dev
+```
+
+To build the application for production:
+
+```bash
+npm run build
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

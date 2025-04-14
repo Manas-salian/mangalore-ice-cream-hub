@@ -1,4 +1,4 @@
-
+import { Container } from 'react-bootstrap';
 import HeroCarousel from "@/components/home/HeroCarousel";
 import IceCreamOfTheDay from "@/components/home/IceCreamOfTheDay";
 import PopularProducts from "@/components/home/PopularProducts";
@@ -9,14 +9,16 @@ import Footer from "@/components/layout/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="d-flex flex-column min-vh-100">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow-1">
         <HeroCarousel />
-        <PopularProducts />
-        <SpecialOfferBanner />
-        <IceCreamOfTheDay />
-        <Testimonials />
+        <Container className="py-5">
+          <PopularProducts />
+          <SpecialOfferBanner />
+          <IceCreamOfTheDay />
+          <Testimonials />
+        </Container>
       </main>
       <Footer />
     </div>

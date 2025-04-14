@@ -1,17 +1,15 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, Plus, Minus } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { StarRating } from "@/components/ui/star-rating";
+import { Card, Button, Badge, InputGroup, Form } from 'react-bootstrap';
 import { useCart } from "@/hooks/use-cart";
 
 const ProductCard = ({ product }) => {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const handleAddToCart = () => {
     const item = {
@@ -39,76 +37,118 @@ const ProductCard = ({ product }) => {
     setQuantity((prev) => Math.max(prev - 1, 1));
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
-    <Card className="overflow-hidden card-hover">
-      <div className="relative">
+    <Card className="h-100 product-card">
+      <div className="position-relative">
         {product.isNew && (
-          <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+          <Badge 
+            bg="info" 
+            className="position-absolute top-0 end-0 m-2"
+          >
             New
-          </div>
+          </Badge>
         )}
         {product.isPopular && (
-          <div className="absolute top-2 left-2 bg-ideal text-white text-xs font-bold px-2 py-1 rounded-full">
+          <Badge 
+            bg="primary" 
+            className="position-absolute top-0 start-0 m-2"
+          >
             Popular
-          </div>
+          </Badge>
         )}
-        <Link to={`/product/${product.id}`}>
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
-          />
-        </Link>
-      </div>
-      <CardContent className="p-4">
-        <Link to={`/product/${product.id}`}>
-          <h3 className="font-medium text-lg mb-2 hover:text-ideal transition-colors">
-            {product.name}
-          </h3>
-        </Link>
-        <p className="text-muted-foreground text-sm line-clamp-2 mb-2">
-          {product.description}
-        </p>
-        <div className="flex justify-between items-center mb-3">
-          <p className="font-bold text-lg">₹{product.price.toFixed(2)}</p>
-          <StarRating initialRating={product.rating} readOnly size="sm" />
-        </div>
-      </CardContent>
-      <CardFooter className="p-4 pt-0 flex items-center gap-2">
-        <div className="flex items-center border rounded-md">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={decrementQuantity}
-            disabled={quantity <= 1}
-            className="h-8 w-8"
-          >
-            <Minus className="h-4 w-4" />
-          </Button>
-          <span className="w-8 text-center">{quantity}</span>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={incrementQuantity}
-            disabled={quantity >= 10}
-            className="h-8 w-8"
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
-        </div>
-        <Button
-          onClick={handleAddToCart}
-          className="flex-1 bg-ideal hover:bg-ideal-dark text-white"
-        >
-          {isAdded ? (
-            <>
-              <Check className="mr-2 h-4 w-4" /> Added
-            </>
+        <div style={{ height: '200px', overflow: 'hidden' }}>
+          {imageError ? (
+            <div 
+              className="d-flex align-items-center justify-content-center h-100 bg-light"
+              style={{ padding: '1rem' }}
+            >
+              <div className="text-center">
+                <div className="bi bi-image text-secondary" style={{ fontSize: '2rem' }}></div>
+                <p className="text-secondary small mt-2">{product.name}</p>
+              </div>
+            </div>
           ) : (
-            "Add to Cart"
+            <Link to={`/product/${product.id}`}>
+              <Card.Img 
+                variant="top" 
+                src={product.image} 
+                alt={product.name} 
+                style={{ height: '200px', objectFit: 'cover', width: '100%' }}
+                onError={handleImageError}
+              />
+            </Link>
           )}
-        </Button>
-      </CardFooter>
+        </div>
+      </div>
+      <Card.Body>
+        <Card.Title 
+          as={Link} 
+          to={`/product/${product.id}`}
+          className="text-decoration-none text-dark h5"
+        >
+          {product.name}
+        </Card.Title>
+        <Card.Text className="text-muted small mb-2" style={{ height: '40px', overflow: 'hidden' }}>
+          {product.description}
+        </Card.Text>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <span className="fw-bold h5 mb-0">₹{product.price.toFixed(2)}</span>
+          <div className="d-flex">
+            {[...Array(5)].map((_, i) => (
+              <i 
+                key={i} 
+                className={`bi ${i < Math.round(product.rating) ? 'bi-star-fill' : 'bi-star'}`}
+                style={{ color: i < Math.round(product.rating) ? '#FFD700' : '#e4e5e9', fontSize: '0.8rem' }}
+              ></i>
+            ))}
+          </div>
+        </div>
+        
+        <div className="d-flex gap-2">
+          <InputGroup className="w-auto">
+            <Button 
+              variant="outline-secondary" 
+              size="sm"
+              onClick={decrementQuantity}
+              disabled={quantity <= 1}
+            >
+              <Minus size={16} />
+            </Button>
+            <Form.Control
+              value={quantity}
+              readOnly
+              className="text-center"
+              style={{ width: '40px' }}
+            />
+            <Button 
+              variant="outline-secondary" 
+              size="sm"
+              onClick={incrementQuantity}
+              disabled={quantity >= 10}
+            >
+              <Plus size={16} />
+            </Button>
+          </InputGroup>
+          
+          <Button 
+            variant="primary" 
+            className="flex-grow-1"
+            onClick={handleAddToCart}
+          >
+            {isAdded ? (
+              <>
+                <Check size={16} className="me-1" /> Added
+              </>
+            ) : (
+              "Add to Cart"
+            )}
+          </Button>
+        </div>
+      </Card.Body>
     </Card>
   );
 };

@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Clipboard, Calendar, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Container, Row, Col, Button, Card, Badge } from "react-bootstrap";
 import { offers } from "@/lib/data";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SpinWheel from "@/components/offers/SpinWheel";
 
 const Offers = () => {
   const [copiedCode, setCopiedCode] = useState(null);
+  const [winnerCode, setWinnerCode] = useState(null);
 
   const handleCopyCode = (code) => {
     navigator.clipboard.writeText(code);
@@ -32,97 +33,130 @@ const Offers = () => {
     return validDate > now && validDate.getTime() - now.getTime() < 7 * 24 * 60 * 60 * 1000;
   };
 
+  const handleWin = (prize) => {
+    if (prize && prize.code) {
+      setWinnerCode(prize.code);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="d-flex flex-column min-vh-100">
       <Navbar />
-      <main className="flex-grow">
-        <div className="bg-ideal py-16">
-          <div className="container">
-            <h1 className="text-4xl font-bold text-white mb-4">Special Offers</h1>
-            <p className="text-white/80 max-w-2xl">
+      <main className="flex-grow-1">
+        <div className="bg-primary py-5">
+          <Container>
+            <h1 className="display-4 fw-bold text-white mb-3">Special Offers</h1>
+            <p className="text-white-50 mb-0" style={{ maxWidth: "600px" }}>
               Discover our exclusive deals and discounts. From happy hours to special promotions,
               save on your favorite ice creams and treats.
             </p>
-          </div>
+          </Container>
         </div>
 
-        <div className="container py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Container className="py-5">
+          <Row xs={1} md={2} lg={3} className="g-4">
             {offers.map((offer) => {
               const expired = isExpired(offer.validUntil);
               const comingSoon = isComingSoon(offer.validUntil);
 
               return (
-                <Card key={offer.id} className={`overflow-hidden transition-all duration-300 ${expired ? 'opacity-60' : 'hover:shadow-lg'}`}>
-                  <div className="h-2 bg-gradient-to-r from-ideal to-ideal-light"></div>
-                  <CardHeader className="pb-2">
-                    <div className="flex justify-between items-start">
-                      <CardTitle>{offer.title}</CardTitle>
-                      {comingSoon && !expired && (
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">
-                          Coming Soon
-                        </span>
-                      )}
-                      {expired && (
-                        <span className="px-2 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded">
-                          Expired
-                        </span>
-                      )}
-                    </div>
-                    <CardDescription>{offer.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between mt-2">
-                      <div className="flex items-center">
-                        <div className="flex items-center text-muted-foreground text-sm">
-                          <Calendar className="h-4 w-4 mr-1" />
+                <Col key={offer.id}>
+                  <Card className={`h-100 transition ${expired ? 'opacity-50' : 'shadow-hover'}`}>
+                    <div className="card-top-stripe bg-primary" style={{ height: "4px" }}></div>
+                    <Card.Header className="pb-2">
+                      <div className="d-flex justify-content-between align-items-start">
+                        <Card.Title>{offer.title}</Card.Title>
+                        {comingSoon && !expired && (
+                          <Badge bg="info" className="ms-2">
+                            Coming Soon
+                          </Badge>
+                        )}
+                        {expired && (
+                          <Badge bg="danger" className="ms-2">
+                            Expired
+                          </Badge>
+                        )}
+                      </div>
+                      <Card.Subtitle className="text-muted">{offer.description}</Card.Subtitle>
+                    </Card.Header>
+                    <Card.Body>
+                      <div className="d-flex align-items-center justify-content-between mt-2">
+                        <div className="d-flex align-items-center text-muted small">
+                          <Calendar className="me-1" size={16} />
                           Valid until:{" "}
                           {new Date(offer.validUntil).toLocaleDateString()}
                         </div>
                       </div>
-                    </div>
 
-                    <div className="mt-4 flex items-center">
-                      <div className="flex-1 bg-gray-100 p-2 rounded-l-md font-mono font-medium text-center">
-                        {offer.code}
+                      <div className="mt-3 d-flex align-items-center">
+                        <div className="flex-grow-1 bg-light p-2 rounded-start fw-medium font-monospace text-center">
+                          {offer.code}
+                        </div>
+                        <Button
+                          variant={expired ? "secondary" : "primary"}
+                          onClick={() => !expired && handleCopyCode(offer.code)}
+                          disabled={expired}
+                          size="sm"
+                          className="rounded-0 rounded-end"
+                        >
+                          {copiedCode === offer.code ? (
+                            <>
+                              <Check size={16} />
+                              <span className="ms-2">Copied</span>
+                            </>
+                          ) : (
+                            <>
+                              <Clipboard size={16} />
+                              <span className="ms-2">Copy</span>
+                            </>
+                          )}
+                        </Button>
                       </div>
-                      <Button
-                        variant="default"
-                        className={expired ? "bg-gray-400 cursor-not-allowed" : "bg-ideal hover:bg-ideal-dark"}
-                        onClick={() => !expired && handleCopyCode(offer.code)}
-                        disabled={expired}
-                        size="sm"
-                      >
-                        {copiedCode === offer.code ? (
-                          <Check className="h-4 w-4" />
-                        ) : (
-                          <Clipboard className="h-4 w-4" />
-                        )}
-                        <span className="ml-2">{copiedCode === offer.code ? "Copied" : "Copy"}</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </Card.Body>
+                  </Card>
+                </Col>
               );
             })}
-          </div>
+          </Row>
 
-          <div className="mt-16 max-w-2xl mx-auto bg-cream-200 rounded-lg p-8">
-            <h2 className="text-2xl font-bold mb-4">Spin the Wheel & Win!</h2>
-            <p className="mb-6">
+          <div className="mt-5 mx-auto bg-light rounded p-4" style={{ maxWidth: "700px" }}>
+            <h2 className="text-center fw-bold mb-3">Spin the Wheel & Win!</h2>
+            <p className="text-center mb-4">
               Try your luck with our Wheel of Fortune and win exciting discounts
               on your next order. You could win up to 50% off!
             </p>
-            <div className="text-center">
-              <Button 
-                className="bg-ideal hover:bg-ideal-dark"
-                onClick={() => toast.success("You won 15% off on your next order! Use code WHEEL15")}
-              >
-                Spin & Win
-              </Button>
-            </div>
+            <SpinWheel onWin={handleWin} />
+            
+            {winnerCode && (
+              <div className="mt-4 p-3 bg-white rounded text-center">
+                <p className="text-muted small">Copy your code and use it at checkout</p>
+                <div className="mt-2 d-flex align-items-center justify-content-center">
+                  <div className="bg-light p-2 rounded-start font-monospace fw-medium text-center" style={{ maxWidth: "200px", width: "100%" }}>
+                    {winnerCode}
+                  </div>
+                  <Button
+                    variant="primary"
+                    onClick={() => handleCopyCode(winnerCode)}
+                    size="sm"
+                    className="rounded-0 rounded-end"
+                  >
+                    {copiedCode === winnerCode ? (
+                      <>
+                        <Check size={16} />
+                        <span className="ms-2">Copied</span>
+                      </>
+                    ) : (
+                      <>
+                        <Clipboard size={16} />
+                        <span className="ms-2">Copy</span>
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
+        </Container>
       </main>
       <Footer />
     </div>
