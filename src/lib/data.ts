@@ -220,6 +220,12 @@ export const locations = [
 export const getIceCreamOfTheDay = () => {
   const iceCreamProducts = products.filter(p => p.category === "Ice Creams");
   const today = new Date();
-  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  // Calculate day of year using a method that returns a number
+  const start = new Date(today.getFullYear(), 0, 0);
+  const diff = today.getTime() - start.getTime();
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+  
   return iceCreamProducts[dayOfYear % iceCreamProducts.length];
 };
+
