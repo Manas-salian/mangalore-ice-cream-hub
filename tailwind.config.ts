@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,29 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors for Ideal Café
+				"ideal": {
+					DEFAULT: "#7C2D75", // Main purple theme
+					dark: "#5A1F55",
+					light: "#9B50A0",
+					50: "#F2E5F0",
+					100: "#E5CCE1",
+					200: "#D1AAD0",
+					300: "#BD87BF",
+					400: "#A95DAE",
+					500: "#7C2D75",
+					600: "#6A2765",
+					700: "#581F55",
+					800: "#461945",
+					900: "#341234"
+				},
+				"cream": {
+					DEFAULT: "#FFF8E1",
+					100: "#FFFAF0",
+					200: "#FEEBC8",
+					300: "#FDE2A9",
+					400: "#FDD98A"
 				}
 			},
 			borderRadius: {
@@ -84,11 +108,21 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'wiggle': {
+					'0%, 100%': { transform: 'rotate(-3deg)' },
+					'50%': { transform: 'rotate(3deg)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 6s ease-in-out infinite',
+				'wiggle': 'wiggle 1s ease-in-out infinite'
 			}
 		}
 	},
